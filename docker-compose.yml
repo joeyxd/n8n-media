@@ -5,8 +5,19 @@ services:
     image: stephengpope/no-code-architects-toolkit:latest
     ports:
       - "8080:8080"  # Maps host port 8080 to container port 8080
-    restart: always
-    # Add other configs if needed (volumes, etc)
+    restart: always    environment:
+      # General API Configuration
+      - API_KEY=Coale0203!
+      
+      # Local Storage Configuration (instead of S3 or GCP)
+      - LOCAL_STORAGE_PATH=/app/data
+      
+      # Performance Tuning
+      - MAX_QUEUE_LENGTH=10
+      - GUNICORN_WORKERS=4
+      - GUNICORN_TIMEOUT=300
+    volumes:
+      - app_data:/app/data
 
   n8n:  # New service
     image: n8nio/n8n
@@ -17,10 +28,11 @@ services:
       - N8N_PORT=5678
       - N8N_HOST=0.0.0.0
       # Authentication (MUST set these in Digital Ocean environment variables)      - N8N_BASIC_AUTH_ACTIVE=true
-      - N8N_BASIC_AUTH_USER=admin
-      - N8N_BASIC_AUTH_PASSWORD=secure_password_here
+      - N8N_BASIC_AUTH_USER=Joey
+      - N8N_BASIC_AUTH_PASSWORD=Coale0203!
     volumes:
       - n8n_data:/home/node/.n8n
 
 volumes:
   n8n_data:  # Persistent storage for workflows
+  app_data:  # Persistent storage for main app
