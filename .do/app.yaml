@@ -1,0 +1,39 @@
+# Digital Ocean App Platform configuration
+name: n8n-media-app
+region: nyc
+services:
+  - name: main-app
+    github:
+      repo: joeyxd/n8n-media
+      branch: main
+      deploy_on_push: true
+    source_dir: main-app
+    http_port: 8080
+    instance_size: basic-xxs
+    instance_count: 1
+    routes:
+      - path: /
+
+  - name: n8n
+    github:
+      repo: joeyxd/n8n-media
+      branch: main
+      deploy_on_push: true
+    source_dir: n8n
+    http_port: 5678
+    instance_size: basic-xs
+    instance_count: 1
+    routes:
+      - path: /n8n
+    envs:
+      - key: N8N_BASIC_AUTH_USER
+        scope: RUN_TIME
+        type: SECRET
+      - key: N8N_BASIC_AUTH_PASSWORD
+        scope: RUN_TIME
+        type: SECRET
+    volumes:
+      - name: n8n-data
+        mount_path: /home/node/.n8n
+        type: pvc
+        size_gb: 1

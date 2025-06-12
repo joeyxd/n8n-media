@@ -1,0 +1,24 @@
+{
+  "name": "n8n",
+  "type": "web",
+  "http_port": 5678,
+  "dockerfile_path": "Dockerfile",
+  "envs": [
+    {
+      "key": "N8N_BASIC_AUTH_USER",
+      "value": "${N8N_BASIC_AUTH_USER}",
+      "type": "SECRET"
+    },
+    {
+      "key": "N8N_BASIC_AUTH_PASSWORD",
+      "value": "${N8N_BASIC_AUTH_PASSWORD}",
+      "type": "SECRET"
+    }
+  ],
+  "volumes": [
+    {
+      "name": "n8n-data",
+      "mount_path": "/home/node/.n8n"
+    }
+  ]
+}

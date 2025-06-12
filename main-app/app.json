@@ -1,0 +1,6 @@
+{
+  "name": "main-app",
+  "type": "web",
+  "http_port": 8080,
+  "dockerfile_path": "Dockerfile"
+}
